@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://elst0xn32iil"]
+
+[ext_resource type="PackedScene" uid="uid://ckudr8chj1kgo" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://dceffjs8rpmpn" path="res://game.gd" id="1_feb5d"]
+[ext_resource type="PackedScene" uid="uid://2oqfqxx5b61g" path="res://enemy.tscn" id="2_e2o6t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3but1"]
+size = Vector2(1152, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_feb5d"]
+size = Vector2(8, 680)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc0e3"]
+size = Vector2(8, 680)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7jktm"]
+size = Vector2(1152, 16)
+
+[node name="Game" type="Node2D" unique_id=441210155]
+script = ExtResource("1_feb5d")
+enemy_scene = ExtResource("2_e2o6t")
+
+[node name="Player" parent="." unique_id=927366247 instance=ExtResource("1_80nbo")]
+
+[node name="Timer" type="Timer" parent="." unique_id=829033625]
+wait_time = 0.5
+autostart = true
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=1242022499]
+collision_layer = 2
+
+[node name="TopCollision" type="CollisionShape2D" parent="Wall" unique_id=1448101182]
+position = Vector2(0, -332)
+shape = SubResource("RectangleShape2D_3but1")
+
+[node name="LeftCollision" type="CollisionShape2D" parent="Wall" unique_id=934121216]
+position = Vector2(-580, 4)
+shape = SubResource("RectangleShape2D_feb5d")
+
+[node name="Right Collision" type="CollisionShape2D" parent="Wall" unique_id=728839494]
+position = Vector2(576, 0)
+shape = SubResource("RectangleShape2D_fc0e3")
+
+[node name="BottomCollision" type="CollisionShape2D" parent="Wall" unique_id=131538798]
+position = Vector2(0, 332)
+shape = SubResource("RectangleShape2D_7jktm")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
